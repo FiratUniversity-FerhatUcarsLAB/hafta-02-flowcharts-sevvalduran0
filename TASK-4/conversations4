@@ -1,0 +1,15 @@
+Konuşma Özeti
+
+İlk İstek:
+
+Üniversite ders kayıt sisteminin detaylı ve doğru sıralı pseudocode’unu istedin.
+
+Sistem işleyişini; öğrenci girişi, ders listesi gösterme, ders seçimi ve kontroller (kredi limiti, zaman çakışması, ön koşul), kayıt onayı ve çıkış adımlarıyla yazdım.
+
+İkinci İstek:
+
+Yazdığım pseudocode’u DOT koduna (Graphviz için) çevirmemi istedin.
+
+Üniversite ders kayıt sisteminin akışını adım adım gösteren, karar ve işlem noktalarını içeren detaylı bir DOT kodu oluşturdum.
+
+Bu kodu Graphviz aracıyla görselleştirebileceğini söyledim.
