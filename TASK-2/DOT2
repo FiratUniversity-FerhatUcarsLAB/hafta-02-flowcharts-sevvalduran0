@@ -1,0 +1,74 @@
+digraph OnlineShoppingFlow {
+    rankdir=LR;
+    node [shape=box, style=filled, fillcolor=lightgrey, fontname="Helvetica"];
+
+    Start [label="Ürün Kataloğu"];
+    Browse [label="Kullanıcı Ürün Geziyor"];
+    SelectProduct [label="Ürün Seç"];
+    AddToCart [label="Sepete Ekle"];
+    RemoveFromCart [label="Sepetten Çıkar"];
+    DoneBrowsing [label="Alışverişi Tamamla"];
+    CheckCart [label="Sepet Kontrolü"];
+    EmptyCart [label="Sepet Boş\n→ Oturum Sonu"];
+
+    LoginCheck [label="Kullanıcı Giriş Yapmış mı?"];
+    Login [label="Giriş Yap"];
+    Register [label="Kayıt Ol"];
+    LoginSuccess [label="Giriş Başarılı"];
+
+    AddressCheck [label="Adres Var mı?"];
+    EnterAddress [label="Adres Gir"];
+    ShippingOptions [label="Kargo Seç"];
+    PaymentOptions [label="Ödeme Yöntemi Seç"];
+    CreditCard [label="Kredi Kartı Bilgisi"];
+    EFT [label="EFT Bilgisi"];
+    PayPal [label="PayPal Ödemesi"];
+    PaymentFailed [label="Ödeme Başarısız\n→ Oturum Sonu"];
+
+    ProcessPayment [label="Ödeme İşlemi"];
+    PaymentSuccess [label="Ödeme Başarılı"];
+    CreateOrder [label="Sipariş Oluştur"];
+    Confirmation [label="Sipariş Onayı Gönder"];
+    ShowOrderID [label="Sipariş ID ve Teslimat Bilgisi"];
+    EndSession [label="Oturum Sonu", shape=ellipse, fillcolor=white];
+
+    // Geçişler
+    Start -> Browse;
+    Browse -> SelectProduct;
+    SelectProduct -> AddToCart;
+    SelectProduct -> RemoveFromCart;
+    AddToCart -> Browse;
+    RemoveFromCart -> Browse;
+    Browse -> DoneBrowsing [label="done"];
+    DoneBrowsing -> CheckCart;
+    CheckCart -> EmptyCart [label="Sepet Boş"];
+    CheckCart -> LoginCheck [label="Sepet Dolu"];
+
+    LoginCheck -> Login [label="Giriş"];
+    LoginCheck -> Register [label="Kayıt"];
+    Login -> LoginSuccess;
+    Register -> LoginSuccess;
+    LoginSuccess -> AddressCheck;
+    AddressCheck -> EnterAddress [label="Adres Yok"];
+    AddressCheck -> ShippingOptions;
+    EnterAddress -> ShippingOptions;
+
+    ShippingOptions -> PaymentOptions;
+    PaymentOptions -> CreditCard;
+    PaymentOptions -> EFT;
+    PaymentOptions -> PayPal;
+
+    CreditCard -> ProcessPayment;
+    EFT -> ProcessPayment;
+    PayPal -> ProcessPayment;
+
+    ProcessPayment -> PaymentSuccess [label="Başarılı"];
+    ProcessPayment -> PaymentFailed [label="Başarısız"];
+    PaymentFailed -> EndSession;
+
+    PaymentSuccess -> CreateOrder;
+    CreateOrder -> Confirmation;
+    Confirmation -> ShowOrderID;
+    ShowOrderID -> EndSession;
+    EmptyCart -> EndSession;
+}
