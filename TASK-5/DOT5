@@ -1,0 +1,43 @@
+digraph SmartHomeSecurity {
+    rankdir=TB;
+    node [shape=box, style=rounded];
+
+    Start [label="Başla\nSistem Başlatma"];
+    GetUserCommand [label="Kullanıcıdan Komut Al (arm, disarm, status)"];
+    CheckCommand [label="Komutu Kontrol Et"];
+    Arm [label="Sistemi Aktif Et (Armed)"];
+    Disarm [label="Sistemi Pasif Et (Disarmed)"];
+    Status [label="Sistem Durumunu Gönder"];
+    CheckSensors [label="Sensörleri Kontrol Et"];
+    NoThreat [label="Tehdit Yok"];
+    ThreatDetected [label="Tehdit Tespit Edildi"];
+    TriggerAlarm [label="Alarmı Çal"];
+    SendNotification [label="Bildirim Gönder"];
+    Wait [label="1 saniye bekle"];
+    
+    Start -> GetUserCommand;
+    GetUserCommand -> CheckCommand;
+    
+    CheckCommand -> Arm [label="arm"];
+    CheckCommand -> Disarm [label="disarm"];
+    CheckCommand -> Status [label="status"];
+    CheckCommand -> Wait [label="diğer"];
+    
+    Arm -> SendNotification [label="Sistem aktif bildirimi"];
+    SendNotification -> Wait;
+    Wait -> CheckSensors [label="Sistem durumu: Armed"];
+    CheckSensors -> NoThreat [label="NoThreat"];
+    CheckSensors -> ThreatDetected [label="Threat"];
+    
+    NoThreat -> GetUserCommand;
+    
+    ThreatDetected -> TriggerAlarm;
+    TriggerAlarm -> SendNotification [label="Alarm bildirimi"];
+    SendNotification -> GetUserCommand;
+    
+    Disarm -> SendNotification [label="Sistem pasif bildirimi"];
+    SendNotification -> GetUserCommand;
+    
+    Status -> SendNotification [label="Durum bilgisi gönder"];
+    SendNotification -> GetUserCommand;
+}
