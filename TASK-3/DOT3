@@ -1,0 +1,52 @@
+digraph HastaneSistemi {
+
+    rankdir=LR;
+    node [shape=box, style=filled, color=lightgrey];
+
+    GirişEkranı -> KayıtOl [label="2"]
+    GirişEkranı -> GirişYap [label="1"]
+    GirişEkranı -> Çıkış [label="3"]
+
+    KayıtOl -> GirişEkranı [label="Kayıt Başarılı"]
+
+    GirişYap -> HastaPaneli [label="Rol: Hasta"]
+    GirişYap -> DoktorPaneli [label="Rol: Doktor"]
+    GirişYap -> AdminPaneli [label="Rol: Admin"]
+    GirişYap -> GirişEkranı [label="Giriş Başarısız"]
+
+    subgraph cluster_hasta {
+        label = "Hasta Paneli"
+        HastaPaneli -> RandevuAl [label="1"]
+        HastaPaneli -> RandevularımıGör [label="2"]
+        HastaPaneli -> TahlilTalepEt [label="3"]
+        HastaPaneli -> TahlilSonuçlarıGör [label="4"]
+        HastaPaneli -> GirişEkranı [label="5"]
+
+        RandevuAl -> HastaPaneli
+        RandevularımıGör -> HastaPaneli
+        TahlilTalepEt -> HastaPaneli
+        TahlilSonuçlarıGör -> HastaPaneli
+    }
+
+    subgraph cluster_doktor {
+        label = "Doktor Paneli"
+        DoktorPaneli -> RandevularıGör [label="1"]
+        DoktorPaneli -> TahlilSonucuGir [label="2"]
+        DoktorPaneli -> GirişEkranı [label="3"]
+
+        RandevularıGör -> DoktorPaneli
+        TahlilSonucuGir -> DoktorPaneli
+    }
+
+    subgraph cluster_admin {
+        label = "Admin Paneli"
+        AdminPaneli -> DoktorEkle [label="1"]
+        AdminPaneli -> BransEkle [label="2"]
+        AdminPaneli -> KullanıcıListele [label="3"]
+        AdminPaneli -> GirişEkranı [label="4"]
+
+        DoktorEkle -> AdminPaneli
+        BransEkle -> AdminPaneli
+        KullanıcıListele -> AdminPaneli
+    }
+}
