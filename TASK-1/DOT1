@@ -1,0 +1,77 @@
+digraph ATM_Withdraw_Flow {
+    rankdir=LR;
+    node [shape=box, style=filled, fillcolor=lightgrey, fontname="Helvetica"];
+
+    Start [label="ATM Başlatıldı"];
+    Idle [label="Kart Bekleniyor"];
+    CardInserted [label="Kart Takıldı"];
+    CardValidated [label="Kart Geçerli mi?"];
+    PINAuth [label="PIN Doğrulama"];
+    PINSuccess [label="PIN Doğrulandı"];
+    PINFail [label="PIN Hatalı"];
+    CardBlocked [label="Kart Bloke Edildi"];
+    SelectAccount [label="Hesap Seçimi"];
+    InputAmount [label="Tutar Gir"];
+    AmountCheck [label="Bakiye / Limit / ATM Nakit Kontrol"];
+    DenomCalc [label="Banknot Dağılımı Hesapla"];
+    DenomFail [label="Uygun Banknot Yok"];
+    HostAuth [label="Banka Onayı"];
+    DispenseCash [label="Para Ver"];
+    DispenseFail [label="Dağıtım Başarısız"];
+    PostHost [label="Banka Final Onay"];
+    Receipt [label="Makbuz Yazdır"];
+    EjectCard [label="Kart İade"];
+    SessionEnd [label="Oturum Sonu"];
+    Timeout [label="Oturum Zaman Aşımı"];
+
+    // Akışlar
+    Start -> Idle;
+    Idle -> CardInserted [label="Kart Takıldı"];
+    CardInserted -> CardValidated;
+    CardValidated -> PINAuth [label="Kart Geçerli"];
+    CardValidated -> EjectCard [label="Kart Geçersiz"];
+
+    PINAuth -> PINSuccess [label="Doğru PIN"];
+    PINAuth -> PINFail [label="Yanlış PIN"];
+    PINFail -> PINAuth [label="< 3 Hatalı"];
+    PINFail -> CardBlocked [label="3. Hata"];
+    CardBlocked -> SessionEnd;
+
+    PINSuccess -> SelectAccount;
+    SelectAccount -> InputAmount;
+    InputAmount -> AmountCheck;
+    
+    AmountCheck -> HostAuth [label="Limit Uygun"];
+    AmountCheck -> EjectCard [label="Yetersiz Bakiye / Limit"];
+
+    HostAuth -> DenomCalc [label="Onay"];
+    HostAuth -> EjectCard [label="Reddedildi"];
+
+    DenomCalc -> DispenseCash [label="Dağılım Uygun"];
+    DenomCalc -> DenomFail [label="Uygun Dağılım Yok"];
+    DenomFail -> InputAmount [label="Yeni Tutar?"];
+    DenomFail -> EjectCard [label="İptal"];
+
+    DispenseCash -> PostHost [label="Başarılı"];
+    DispenseCash -> DispenseFail [label="Hata"];
+    DispenseFail -> EjectCard [label="İptal"];
+
+    PostHost -> Receipt;
+    Receipt -> EjectCard;
+    EjectCard -> SessionEnd;
+
+    PINAuth -> Timeout [label="Zaman Aşımı"];
+    InputAmount -> Timeout [label="Zaman Aşımı"];
+    Timeout -> EjectCard;
+
+    // Görsel düzenleme
+    { rank=same; PINFail; CardBlocked; }
+    { rank=same; DispenseFail; DenomFail; }
+
+    // Özel durumlar için renk
+    CardBlocked [fillcolor=red, fontcolor=white];
+    DispenseFail [fillcolor=orange];
+    DenomFail [fillcolor=orange];
+    Timeout [fillcolor=lightblue];
+    SessionEnd [fillcolor=white, shape=ellipse];
+}
