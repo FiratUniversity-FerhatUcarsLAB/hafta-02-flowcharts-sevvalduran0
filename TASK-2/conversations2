@@ -1,0 +1,59 @@
+🟢 1. SORU
+
+Soru:
+
+“Online alışveriş sepeti sistemi ve ödeme sürecini içeren detaylı ve doğru sıralı bir pseudocode yazar mısın?”
+
+Cevap:
+
+Sana kapsamlı bir pseudocode yazdım.
+
+İçeriği:
+
+Ürünleri görüntüleme, sepete ekleme/çıkarma
+
+Sepet kontrolü
+
+Kullanıcı girişi / kaydı
+
+Adres girme ve kargo seçimi
+
+Ödeme yöntemlerinin seçimi (Kredi kartı, EFT, PayPal)
+
+Ödeme doğrulama
+
+Sipariş oluşturma ve onay
+
+Başarısız ödeme veya boş sepet durumlarında oturum sonu
+
+🟢 2. SORU
+
+Soru:
+
+“Bu kodu DOT koduna çevirir misin?”
+
+Cevap:
+
+Pseudocode’un mantıksal akışını Graphviz DOT diliyle bir akış diyagramına çevirdim.
+
+Tüm önemli adımlar node olarak tanımlandı:
+
+Ürün Kataloğu, Sepete Ekle, Giriş Yap, Adres Gir, Ödeme İşlemi, Sipariş Oluştur vs.
+
+Geçişler edge yapısıyla yönlendirildi.
+
+Alternatif yollar (örneğin: boş sepet → oturum sonu, başarısız ödeme → iptal) gösterildi.
+
+Kodun çalışır ve anlamlı görselleştirme için uygun olduğu belirtildi.
+
+🟢 3. SORU
+
+Soru:
+
+“Sana sorduğum online alışverişle ilgili sohbetin kısımlarının özetini çıkarır mısın?”
+
+Cevap (bu mesaj):
+
+Yukarıdaki iki aşamayı kısa ve açık bir şekilde özetledim.
+
+Pseudocode → DOT dönüşümü ile tüm alışveriş ve ödeme süreci görselleştirilmiş oldu.
