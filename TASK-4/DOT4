@@ -1,0 +1,99 @@
+digraph UniversityCourseRegistration {
+    rankdir=TB;
+    node [shape=box, style=rounded];
+
+    // Başlangıç
+    Start [label="Başla", shape=oval];
+
+    // 1. Öğrenci Girişi
+    Login [label="Öğrenci Girişi\n(kullanıcı adı ve şifre al)"];
+    CheckLogin [label="Giriş bilgilerini kontrol et", shape=diamond];
+
+    LoginSuccess [label="Giriş Başarılı"];
+    LoginFail [label="Giriş Hatası Mesajı"];
+    RetryLogin [label="Tekrar Deneme"];
+
+    // 2. Ders Listesi Göster
+    ShowCourses [label="Ders Listesini Göster"];
+
+    // 3. Ders Seçimi ve Kontroller
+    ChooseCourseDecision [label="Ders seçmek istiyor mu?", shape=diamond];
+
+    GetCourseID [label="Ders ID al"];
+    FindCourse [label="Seçilen dersi bul"];
+    
+    PrereqCheck [label="Ön koşul kontrolü", shape=diamond];
+    PrereqFail [label="Ön koşul sağlanmadı"];
+
+    TimeConflictCheck [label="Zaman çakışması kontrolü", shape=diamond];
+    TimeConflictFail [label="Zaman çakışması var"];
+
+    CreditLimitCheck [label="Kredi limiti kontrolü", shape=diamond];
+    CreditLimitFail [label="Kredi limiti aşıldı"];
+
+    AddCourse [label="Dersi seçilenlere ekle"];
+    InformAdded [label="Ders başarıyla eklendi"];
+
+    // 4. Kayıt Onayı
+    AnyCourseSelected [label="Seçilen ders var mı?", shape=diamond];
+    ConfirmSave [label="Dersleri kaydetmek istiyor musunuz?", shape=diamond];
+    SaveCourses [label="Kayıtları kaydet"];
+    InformSaved [label="Dersler başarıyla kaydedildi"];
+    CancelSave [label="Kayıt işlemi iptal edildi"];
+
+    NoCoursesSelected [label="Seçilen ders yok"];
+
+    // 5. Çıkış
+    Exit [label="Çıkış Yap", shape=oval];
+
+    // Oklar
+    Start -> Login;
+    Login -> CheckLogin;
+
+    CheckLogin -> LoginSuccess [label="doğru"];
+    CheckLogin -> LoginFail [label="yanlış"];
+
+    LoginFail -> RetryLogin;
+    RetryLogin -> Login;
+
+    LoginSuccess -> ShowCourses;
+    ShowCourses -> ChooseCourseDecision;
+
+    ChooseCourseDecision -> GetCourseID [label="evet"];
+    ChooseCourseDecision -> AnyCourseSelected [label="hayır"];
+
+    GetCourseID -> FindCourse;
+    FindCourse -> PrereqCheck;
+
+    PrereqCheck -> AddCourse [label="ön koşul sağlandı"];
+    PrereqCheck -> PrereqFail [label="sağlanmadı"];
+
+    PrereqFail -> ChooseCourseDecision;
+
+    AddCourse -> TimeConflictCheck;
+    TimeConflictCheck -> AddCourse [label="çakışma yok"];
+    TimeConflictCheck -> TimeConflictFail [label="çakışma var"];
+
+    TimeConflictFail -> ChooseCourseDecision;
+
+    AddCourse -> CreditLimitCheck;
+    CreditLimitCheck -> AddCourse [label="limit aşılmadı"];
+    CreditLimitCheck -> CreditLimitFail [label="limit aşıldı"];
+
+    CreditLimitFail -> ChooseCourseDecision;
+
+    AddCourse -> InformAdded;
+    InformAdded -> ChooseCourseDecision;
+
+    AnyCourseSelected -> ConfirmSave [label="evet"];
+    AnyCourseSelected -> NoCoursesSelected [label="hayır"];
+
+    ConfirmSave -> SaveCourses [label="evet"];
+    ConfirmSave -> CancelSave [label="hayır"];
+
+    SaveCourses -> InformSaved;
+    InformSaved -> Exit;
+
+    CancelSave -> Exit;
+    NoCoursesSelected -> Exit;
+}
