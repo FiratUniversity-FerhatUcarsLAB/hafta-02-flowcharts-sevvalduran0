@@ -1,0 +1,53 @@
+🟢 1. Pseudocode İsteği
+
+Sen:
+
+“Hastane randevu ve tahlil sistemini eksiksiz ve detaylı bir pseudocode şeklinde yazar mısın?”
+
+Ben:
+
+Hasta, doktor ve admin rollerini kapsayan modüler bir sistem pseudocode sundum.
+
+Sistemde şunlar vardı:
+
+Kayıt ve giriş
+
+Randevu alma, listeleme
+
+Tahlil talebi ve sonucu görme
+
+Doktor arayüzü (randevu görme, tahlil sonucu girme)
+
+Admin paneli (doktor ve branş ekleme)
+
+🟡 2. DOT Koduna Çevirme
+
+Sen:
+
+“Bu kodu DOT koduna çevirir misin?”
+
+Ben:
+
+Graphviz’in DOT dili kullanılarak, sistemin akış diyagramını oluşturan bir DOT kodu yazdım.
+
+Akış şu yapıları içeriyordu:
+
+Giriş ekranı → Giriş / Kayıt / Çıkış
+
+Kullanıcı rolleri → Hasta paneli, Doktor paneli, Admin paneli
+
+Her panelin alt fonksiyonları oklarla gösterildi.
+
+🔵 3. DOT Kodunu Pseudocode’a Geri Çevirme
+
+Sen:
+
+“Bu kodu doğru bir şekilde pseudocode’a tekrar çevir.”
+
+Ben:
+
+DOT diyagramına sadık kalarak, daha yapılandırılmış bir şekilde menü tabanlı pseudocode yazdım.
+
+Her rol için ayrı paneller ve işlevler içeriyordu.
+
+Kullanıcıların yaptığı seçimlere göre sistemin nasıl ilerlediğini adım adım gösterdim.
