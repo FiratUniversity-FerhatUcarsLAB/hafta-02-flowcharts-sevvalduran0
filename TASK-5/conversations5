@@ -1,0 +1,5 @@
+Akıllı ev güvenlik sistemi için detaylı ve doğru sıralı pseudocode istendi:
+Akıllı ev güvenlik sistemi temel bileşenleri (sensörler, alarm, bildirimler) dikkate alınarak adım adım çalışan bir pseudocode yazıldı.
+  Pseudocode’un Graphviz DOT koduna çevrilmesi talebi:
+Yazılan pseudocode temel alınarak, sistemin işleyişini gösteren akış diyagramı DOT formatında kodlandı.
+  Güvenlik sistemiyle ilgili verilen tüm bilgilerin kısa ve net özeti çıkarıldı.
